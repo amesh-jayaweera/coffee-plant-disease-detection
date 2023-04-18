@@ -1,1 +1,0 @@
-# coffee-plant-disease-detection
