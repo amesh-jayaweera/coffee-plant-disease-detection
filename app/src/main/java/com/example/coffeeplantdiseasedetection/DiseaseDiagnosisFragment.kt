@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class DiseaseDiagnosisFragment : Fragment() {
 
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var uploadedImageView: ImageView
+    private var contentUri: Uri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,12 @@ class DiseaseDiagnosisFragment : Fragment() {
 
         val btnPredict = view.findViewById<Button>(R.id.btn_predict)
         btnPredict.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment)
+            if (contentUri == Uri.EMPTY) {
+                Toast.makeText(context, "Please upload coffee plant image", Toast.LENGTH_SHORT).show()
+            } else {
+                contentUri = Uri.EMPTY
+                Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment)
+            }
         }
 
         uploadedImageView.setOnClickListener {
@@ -97,7 +104,7 @@ class DiseaseDiagnosisFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data != null) {
-                val contentUri = data.data
+                contentUri = data.data!!
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, contentUri)
                     // saveImage(bitmap)
@@ -116,7 +123,9 @@ class DiseaseDiagnosisFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data != null && data.extras != null) {
+                contentUri = data.data!!
                 val thumbnail = data.extras!!.get("data") as Bitmap
+                uploadedImageView.background = null
                 uploadedImageView.setImageBitmap(thumbnail)
                 // saveImage(thumbnail)
                 Toast.makeText(context, "Photo Show!", Toast.LENGTH_SHORT).show()

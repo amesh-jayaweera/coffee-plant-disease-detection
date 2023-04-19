@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_diseaseDiagnosisFragment"
             app:destination="@id/diseaseDiagnosisFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/diseaseDiagnosisFragment"
@@ -37,4 +40,9 @@
         android:name="com.example.coffeeplantdiseasedetection.DiseaseDiagnosisResultFragment"
         android:label="fragment_disease_diagnosis_result"
         tools:layout="@layout/fragment_disease_diagnosis_result" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.coffeeplantdiseasedetection.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
