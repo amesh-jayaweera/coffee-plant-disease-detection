@@ -14,4 +14,12 @@
     <string name="please_upload_your_image">Please upload your image</string>
     <string name="predict">Predict</string>
     <string name="plus_icon">Plus Icon</string>
+    <string name="disease_diagnosis_result_page_title">Diagnosis Result</string>
+    <string name="back_button">Back Button</string>
+    <string name="disease_name">Disease name</string>
+    <string name="example_disease">Example Disease</string>
+    <string name="solution">Solution</string>
+    <string name="example_solution">Example Solution</string>
+    <string name="done">Done</string>
+    <string name="loaded_image">Loaded Image</string>
 </resources>

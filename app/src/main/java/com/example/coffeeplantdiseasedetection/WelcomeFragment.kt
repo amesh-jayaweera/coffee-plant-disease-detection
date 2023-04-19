@@ -25,8 +25,7 @@ class WelcomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_welcome, container, false)
         val button = view.findViewById<Button>(R.id.btn_start)
         button.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_welcomeFragment_to_homeFragment)
+            Navigation.findNavController(view).navigate(R.id.action_welcomeFragment_to_homeFragment)
         }
         return view
     }

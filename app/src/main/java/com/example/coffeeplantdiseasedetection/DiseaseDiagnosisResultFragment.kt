@@ -1,10 +1,13 @@
 package com.example.coffeeplantdiseasedetection
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +36,18 @@ class DiseaseDiagnosisResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_disease_diagnosis_result, container, false)
+        val view = inflater.inflate(R.layout.fragment_disease_diagnosis_result, container, false)
+        val button = view.findViewById<ImageView>(R.id.btn_back)
+        button.setOnClickListener {
+            Navigation.findNavController(view).navigateUp()
+        }
+
+        val btnDone = view.findViewById<Button>(R.id.btn_done)
+        btnDone.setOnClickListener {
+            Navigation.findNavController(view).navigateUp()
+        }
+
+        return view
     }
 
     companion object {
