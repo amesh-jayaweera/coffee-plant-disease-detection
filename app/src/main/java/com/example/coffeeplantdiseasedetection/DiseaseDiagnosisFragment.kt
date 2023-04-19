@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
@@ -29,7 +29,7 @@ class DiseaseDiagnosisFragment : Fragment() {
 
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var uploadedImageView: ImageView
-    private var contentUri: Uri = Uri.EMPTY
+    private var image: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +48,16 @@ class DiseaseDiagnosisFragment : Fragment() {
 
         val btnPredict = view.findViewById<Button>(R.id.btn_predict)
         btnPredict.setOnClickListener {
-            if (contentUri == Uri.EMPTY) {
+            if (image == null) {
                 Toast.makeText(context, "Please upload coffee plant image", Toast.LENGTH_SHORT).show()
             } else {
-                contentUri = Uri.EMPTY
-                Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment)
+                val bundle = Bundle()
+                //val stream = ByteArrayOutputStream()
+//                image!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//                val byteArray = stream.toByteArray()
+                bundle.putParcelable("image", image)
+                image = null
+                Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment, bundle)
             }
         }
 
@@ -104,10 +109,10 @@ class DiseaseDiagnosisFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data != null) {
-                contentUri = data.data!!
+                val contentUri = data.data!!
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, contentUri)
-                    // saveImage(bitmap)
+                    image = bitmap
                     uploadedImageView.background = null
                     uploadedImageView.setImageBitmap(bitmap)
 
@@ -123,8 +128,8 @@ class DiseaseDiagnosisFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data != null && data.extras != null) {
-                contentUri = data.data!!
                 val thumbnail = data.extras!!.get("data") as Bitmap
+                image = thumbnail
                 uploadedImageView.background = null
                 uploadedImageView.setImageBitmap(thumbnail)
                 // saveImage(thumbnail)

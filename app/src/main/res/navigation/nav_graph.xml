@@ -39,7 +39,13 @@
         android:id="@+id/diseaseDiagnosisResultFragment"
         android:name="com.example.coffeeplantdiseasedetection.DiseaseDiagnosisResultFragment"
         android:label="fragment_disease_diagnosis_result"
-        tools:layout="@layout/fragment_disease_diagnosis_result" />
+        tools:layout="@layout/fragment_disease_diagnosis_result">
+
+        <argument
+            android:name="image"
+            app:argType="android.graphics.Bitmap" />
+
+    </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.coffeeplantdiseasedetection.MapsFragment"
