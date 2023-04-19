@@ -10,4 +10,8 @@
     <string name="img_google_map_icon">Google Map Icon</string>
     <string name="scan">Scan</string>
     <string name="map">Map</string>
+    <string name="diagnosis">Disease Diagnosis</string>
+    <string name="please_upload_your_image">Please upload your image</string>
+    <string name="predict">Predict</string>
+    <string name="plus_icon">Plus Icon</string>
 </resources>
