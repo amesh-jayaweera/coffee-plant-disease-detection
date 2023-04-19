@@ -33,7 +33,6 @@
             android:layout_height="250dp"
             android:src="@drawable/plus_icon"
             android:layout_marginTop="48dp"
-            android:scaleType="fitCenter"
             android:background="@drawable/upload_image_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

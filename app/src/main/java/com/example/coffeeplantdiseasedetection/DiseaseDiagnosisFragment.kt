@@ -17,7 +17,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 /**
@@ -30,10 +29,6 @@ class DiseaseDiagnosisFragment : Fragment() {
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var uploadedImageView: ImageView
     private var image: Bitmap? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +47,6 @@ class DiseaseDiagnosisFragment : Fragment() {
                 Toast.makeText(context, "Please upload coffee plant image", Toast.LENGTH_SHORT).show()
             } else {
                 val bundle = Bundle()
-                //val stream = ByteArrayOutputStream()
-//                image!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//                val byteArray = stream.toByteArray()
                 bundle.putParcelable("image", image)
                 image = null
                 Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment, bundle)
@@ -113,7 +105,8 @@ class DiseaseDiagnosisFragment : Fragment() {
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, contentUri)
                     image = bitmap
-                    uploadedImageView.background = null
+                    uploadedImageView.setBackgroundResource(R.drawable.image_preview_backhground)
+                    uploadedImageView.scaleType = ImageView.ScaleType.FIT_CENTER
                     uploadedImageView.setImageBitmap(bitmap)
 
                 } catch (e: IOException) {
@@ -130,9 +123,9 @@ class DiseaseDiagnosisFragment : Fragment() {
             if (data != null && data.extras != null) {
                 val thumbnail = data.extras!!.get("data") as Bitmap
                 image = thumbnail
-                uploadedImageView.background = null
+                uploadedImageView.setBackgroundResource(R.drawable.image_preview_backhground)
+                uploadedImageView.scaleType = ImageView.ScaleType.FIT_CENTER
                 uploadedImageView.setImageBitmap(thumbnail)
-                // saveImage(thumbnail)
                 Toast.makeText(context, "Photo Show!", Toast.LENGTH_SHORT).show()
             }
         }
