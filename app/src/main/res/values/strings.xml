@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">Coffee Plant Disease Detection</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Coffee Plant Disease Diagnosis</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome">Welcome</string>
     <string name="btn_next">Next</string>
     <string name="welcome_screen_image">Welcome Screen Image</string>
+    <string name="coffee_plant_disease_diagnosis">Coffee Plant Disease Diagnosis</string>
+    <string name="img_home_banner">Steps of Coffee Plant Diagnosis</string>
+    <string name="img_scan_icon">Icon for Scan</string>
+    <string name="img_google_map_icon">Google Map Icon</string>
+    <string name="scan">Scan</string>
+    <string name="map">Map</string>
 </resources>
