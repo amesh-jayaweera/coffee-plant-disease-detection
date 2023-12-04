@@ -39,86 +39,106 @@
             android:layout_marginTop="48dp"
             android:contentDescription="@string/img_home_banner" />
 
-        <ImageView
-            android:id="@+id/img_scan"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="24dp"
+        <LinearLayout
+            android:id="@+id/layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
             android:layout_marginTop="48dp"
-            android:background="@drawable/rounded_image_view"
-            android:clickable="true"
-            android:contentDescription="@string/img_scan_icon"
-            android:focusable="true"
-            android:src="@drawable/camera_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_home_banner" />
+            app:layout_constraintTop_toBottomOf="@+id/img_home_banner">
 
-        <ImageView
-            android:id="@+id/img_map"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="24dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/rounded_image_view"
-            android:src="@drawable/google_map"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="48dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_scan"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/rounded_image_view"
+                    android:clickable="true"
+                    android:contentDescription="@string/img_scan_icon"
+                    android:focusable="true"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/camera_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="24dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_map"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/rounded_image_view"
+                    android:clickable="true"
+                    android:contentDescription="@string/img_google_map_icon"
+                    android:focusable="true"
+                    android:src="@drawable/google_map" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/map"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_home_banner"
-            android:contentDescription="@string/img_google_map_icon" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_container">
 
-        <TextView
-            android:id="@+id/lbl_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/scan"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_scan"
-            app:layout_constraintEnd_toEndOf="@id/img_scan"
-            app:layout_constraintStart_toStartOf="@id/img_scan"
-            android:gravity="center_horizontal|bottom" />
+            <ImageView
+                android:id="@+id/img_blog"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/rounded_image_view"
+                android:clickable="true"
+                android:contentDescription="@string/img_blog_icon"
+                android:focusable="true"
+                android:src="@drawable/icons8_blog" />
 
-        <TextView
-            android:id="@+id/lbl_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/map"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_map"
-            app:layout_constraintEnd_toEndOf="@id/img_map"
-            app:layout_constraintStart_toStartOf="@id/img_map"
-            android:gravity="center_horizontal|bottom" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blogs"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/black"/>
 
-        <ImageView
-            android:id="@+id/img_blog"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/icons8_blog"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/rounded_image_view"
-            android:contentDescription="@string/img_blog_icon"
-            app:layout_constraintEnd_toStartOf="@+id/lbl_map"
-            app:layout_constraintStart_toEndOf="@+id/lbl_scan"
-            app:layout_constraintTop_toBottomOf="@+id/img_scan" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/lbl_blog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/blogs"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_blog"
-            app:layout_constraintEnd_toEndOf="@id/img_blog"
-            app:layout_constraintStart_toStartOf="@id/img_blog"
-            android:gravity="center_horizontal|bottom" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

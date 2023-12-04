@@ -9,9 +9,9 @@
     <string name="img_scan_icon">Icon for Scan</string>
     <string name="img_google_map_icon">Google Map Icon</string>
     <string name="img_blog_icon">Blog Icon</string>
-    <string name="scan">Scan</string>
-    <string name="map">Map</string>
-    <string name="blogs">Map</string>
+    <string name="scan">Predict Disease</string>
+    <string name="map">Statistics</string>
+    <string name="blogs">Blogs</string>
     <string name="diagnosis">Disease Diagnosis</string>
     <string name="please_upload_your_image">Please upload your image</string>
     <string name="predict">Predict</string>
