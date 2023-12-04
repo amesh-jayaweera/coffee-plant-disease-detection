@@ -3,6 +3,7 @@ package com.example.coffeeplantdiseasedetection.repository
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.coffeeplantdiseasedetection.api.RetrofitClient
+import com.example.coffeeplantdiseasedetection.model.StatsRequestBody
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,5 +29,15 @@ class ApiRepository : Repository {
             }
         }
         return null
+    }
+
+    override suspend fun updateStats(district: String, diseaseType: String) {
+        try {
+            RetrofitClient.getApi().updateStats(StatsRequestBody(
+                district,
+                diseaseType))
+        } catch (ex: Exception) {
+            Log.e("ERROR", "Exception: " + ex.message)
+        }
     }
 }

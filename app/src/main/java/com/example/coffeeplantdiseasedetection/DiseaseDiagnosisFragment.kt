@@ -54,6 +54,7 @@ class DiseaseDiagnosisFragment : Fragment() {
             } else {
                 val bundle = Bundle()
                 bundle.putParcelable("image", image)
+                bundle.putString("district", if (selectedDistrictIndex > 0) DISTRICTS[selectedDistrictIndex] else null)
                 image = null
                 Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment, bundle)
             }

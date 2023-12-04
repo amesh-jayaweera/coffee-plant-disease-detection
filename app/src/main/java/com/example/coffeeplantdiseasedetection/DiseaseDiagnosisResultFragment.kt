@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private const val ARG_PARAM_IMAGE_URI = "image"
+private const val ARG_PARAM_DISTRICT = "district"
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +30,7 @@ private const val ARG_PARAM_IMAGE_URI = "image"
 class DiseaseDiagnosisResultFragment : Fragment() {
     private lateinit var repository: Repository
     private var image: Bitmap? = null
+    private var district: String? = null
     private lateinit var btnDone: Button
     private lateinit var textDisease: TextView
     private lateinit var textSolution: TextView
@@ -36,7 +38,8 @@ class DiseaseDiagnosisResultFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            image = it.getParcelable("image")!!
+            image = it.getParcelable(ARG_PARAM_IMAGE_URI)!!
+            district = it.getString(ARG_PARAM_DISTRICT)
         }
 
         repository = ApiRepository()
@@ -77,6 +80,19 @@ class DiseaseDiagnosisResultFragment : Fragment() {
             val predictedCategory = repository.predict(image)
             withContext(Dispatchers.Main) {
                 setSolution(predictedCategory)
+
+                // update stats
+                if (district != null &&  predictedCategory != null) {
+                    updateStats(district, predictedCategory)
+                }
+            }
+        }
+    }
+
+    private fun updateStats(district: String?, category: Int) {
+        if (!district.isNullOrEmpty() && category != 1) {
+            CoroutineScope(Dispatchers.IO).launch {
+                CATEGORY[category]?.let { repository.updateStats(district, it) }
             }
         }
     }
@@ -110,13 +126,20 @@ class DiseaseDiagnosisResultFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(image: Bitmap) =
+        fun newInstance(image: Bitmap, district: String?) =
             DiseaseDiagnosisResultFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_PARAM_IMAGE_URI, image)
+                    putString(ARG_PARAM_DISTRICT, district)
                 }
             }
 
+        val CATEGORY = mapOf(
+            0 to "Cerscospora",
+            2 to "Leaf rust",
+            3 to "Miner",
+            4 to "Phoma"
+        )
 
         val DISEASES = mapOf(
             0 to "Cercospora Leaf Spot",
