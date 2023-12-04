@@ -33,7 +33,9 @@
         tools:layout="@layout/fragment_disease_diagnosis" >
         <action
             android:id="@+id/action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment"
-            app:destination="@id/diseaseDiagnosisResultFragment" />
+            app:destination="@id/diseaseDiagnosisResultFragment"
+            app:popUpTo="@id/diseaseDiagnosisFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/diseaseDiagnosisResultFragment"

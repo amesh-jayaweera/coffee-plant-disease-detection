@@ -32,6 +32,7 @@ class DiseaseDiagnosisFragment : Fragment() {
 
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var uploadedImageView: ImageView
+    private lateinit var spinner: Spinner
     private var image: Bitmap? = null
     private var selectedDistrictIndex: Int = 0
 
@@ -41,7 +42,7 @@ class DiseaseDiagnosisFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_disease_diagnosis, container, false)
         val button = view.findViewById<ImageView>(R.id.btn_back)
-        val spinner = view.findViewById<Spinner>(R.id.spinner)
+        spinner = view.findViewById<Spinner>(R.id.spinner)
         uploadedImageView = view.findViewById(R.id.img_upload) as ImageView
         button.setOnClickListener {
             Navigation.findNavController(view).navigateUp()
@@ -57,7 +58,6 @@ class DiseaseDiagnosisFragment : Fragment() {
                 bundle.putString("district", if (selectedDistrictIndex > 0) DISTRICTS[selectedDistrictIndex] else null)
                 image = null
                 selectedDistrictIndex = 0
-                spinner.setSelection(0)
                 Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment, bundle)
             }
         }
@@ -105,6 +105,8 @@ class DiseaseDiagnosisFragment : Fragment() {
         }
 
         spinner.adapter = adapter
+        selectedDistrictIndex = 0
+        spinner.setSelection(0)
 
         // Set a listener to handle arrow icon changes when an item is selected
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

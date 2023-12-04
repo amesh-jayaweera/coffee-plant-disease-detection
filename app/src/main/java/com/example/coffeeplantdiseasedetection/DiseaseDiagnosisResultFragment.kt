@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -34,6 +36,7 @@ class DiseaseDiagnosisResultFragment : Fragment() {
     private lateinit var btnDone: Button
     private lateinit var textDisease: TextView
     private lateinit var textSolution: TextView
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +69,8 @@ class DiseaseDiagnosisResultFragment : Fragment() {
 
         textDisease = view.findViewById(R.id.txt_disease)
         textSolution = view.findViewById(R.id.txt_solution)
+        spinner = view.findViewById(R.id.loadingSpinner)
+        spinner.visibility = View.GONE
         btnDone.visibility = View.GONE
         textDisease.text = "N/A"
         textSolution.text = "N/A"
@@ -77,6 +82,8 @@ class DiseaseDiagnosisResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(Dispatchers.IO).launch {
+            spinner.visibility = View.VISIBLE
+            textDisease.visibility = View.GONE
             val predictedCategory = repository.predict(image)
             withContext(Dispatchers.Main) {
                 setSolution(predictedCategory)
@@ -113,6 +120,8 @@ class DiseaseDiagnosisResultFragment : Fragment() {
             }
         }
 
+        spinner.visibility = View.GONE
+        textDisease.visibility = View.VISIBLE
         btnDone.visibility = View.VISIBLE
     }
 
