@@ -15,10 +15,6 @@ import androidx.navigation.Navigation
  */
 class HomeFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +28,11 @@ class HomeFragment : Fragment() {
         val btnMap = view.findViewById<ImageView>(R.id.img_map)
         btnMap.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mapsFragment)
+        }
+
+        val btnBlog = view.findViewById<ImageView>(R.id.img_blog)
+        btnBlog.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_blogFragment)
         }
         return view
     }
