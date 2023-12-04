@@ -10,8 +10,12 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -29,6 +33,7 @@ class DiseaseDiagnosisFragment : Fragment() {
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var uploadedImageView: ImageView
     private var image: Bitmap? = null
+    private var selectedDistrictIndex: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +41,7 @@ class DiseaseDiagnosisFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_disease_diagnosis, container, false)
         val button = view.findViewById<ImageView>(R.id.btn_back)
+        val spinner = view.findViewById<Spinner>(R.id.spinner)
         uploadedImageView = view.findViewById(R.id.img_upload) as ImageView
         button.setOnClickListener {
             Navigation.findNavController(view).navigateUp()
@@ -50,6 +56,68 @@ class DiseaseDiagnosisFragment : Fragment() {
                 bundle.putParcelable("image", image)
                 image = null
                 Navigation.findNavController(view).navigate(R.id.action_diseaseDiagnosisFragment_to_diseaseDiagnosisResultFragment, bundle)
+            }
+        }
+
+        val adapter = object : ArrayAdapter<String>(requireContext(), R.layout.item_district, R.id.selectedDistrict, DISTRICTS) {
+            // expanded state
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent)
+
+                // Set arrow icon based on the position
+                val arrowIcon = view.findViewById<ImageView>(R.id.arrowIcon)
+                if (position == 0) {
+                    // Show up arrow for first option in dropdown
+                    arrowIcon.setImageResource(R.drawable.arrow_up)
+                } else {
+                    // Do not show for other options
+                    arrowIcon.setImageDrawable(null)
+                }
+
+                val selectedItem = view.findViewById<TextView>(R.id.selectedDistrict)
+                if (position != 0 && position == selectedDistrictIndex) {
+                    selectedItem?.setTextColor(resources.getColor(R.color.black))
+                } else {
+                    selectedItem?.setTextColor(resources.getColor(R.color.ash_gray))
+                }
+
+                return view
+            }
+
+            // closed state
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+
+                // Set down arrow icon for the first element
+                val arrowIcon = view.findViewById<ImageView>(R.id.arrowIcon)
+                if (position == 0) {
+                    arrowIcon.setImageResource(R.drawable.arrow_down)
+                } else {
+                    // Hide arrow for other items in closed spinner
+                    arrowIcon.setImageDrawable(null)
+                }
+
+                return view
+            }
+        }
+
+        spinner.adapter = adapter
+
+        // Set a listener to handle arrow icon changes when an item is selected
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+                // Change the arrow icon when an item is selected
+                selectedDistrictIndex = position
+                val selectedItem = selectedItemView?.findViewById<TextView>(R.id.selectedDistrict)
+                if (position != 0) {
+                    selectedItem?.setTextColor(resources.getColor(R.color.black))
+                } else {
+                    selectedItem?.setTextColor(resources.getColor(R.color.ash_gray))
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // Handle when nothing is selected if needed
             }
         }
 
@@ -139,5 +207,35 @@ class DiseaseDiagnosisFragment : Fragment() {
     private fun takePhotoFromCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraActivityResult.launch(cameraIntent)
+    }
+
+    companion object {
+         val DISTRICTS = arrayOf(
+             "Select district",
+            "Ampara",
+            "Anuradhapura",
+            "Badulla",
+            "Batticaloa",
+            "Colombo",
+            "Galle",
+            "Hambantota",
+            "Jaffna",
+            "Kalutara",
+            "Kandy",
+            "Kegalle",
+            "Kilinochchi",
+            "Kurunegala",
+            "Mannar",
+            "Matale",
+            "Matara",
+            "Monaragala",
+            "Mulaitivu",
+            "Nuwara Eliya",
+            "Polonnaruwa",
+            "Puttalam",
+            "Ratnapura",
+            "Trincomalee",
+            "Vavuniya"
+        )
     }
 }

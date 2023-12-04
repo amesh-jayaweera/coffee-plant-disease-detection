@@ -25,4 +25,5 @@
     <string name="done">Done</string>
     <string name="loaded_image">Loaded Image</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="district_of_the_uploaded_coffee_leaves">District of the uploaded coffee leaves: </string>
 </resources>

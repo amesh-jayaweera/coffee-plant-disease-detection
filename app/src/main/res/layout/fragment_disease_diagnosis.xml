@@ -55,13 +55,14 @@
             android:id="@+id/btn_predict"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:background="@drawable/start_btn_bg"
             android:text="@string/predict"
             android:textColor="#795548"
+            android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_plz_upload_ur_image" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:id="@+id/btn_back"
@@ -75,6 +76,35 @@
             android:src="@drawable/back_arrow_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/district_of_the_uploaded_coffee_leaves"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_plz_upload_ur_image" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown"
+            android:gravity="center"
+            android:background="@drawable/blue_outline"
+            android:popupBackground="@drawable/blue_outline_white_background"
+            tools:listitem="@layout/item_district"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_district" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
