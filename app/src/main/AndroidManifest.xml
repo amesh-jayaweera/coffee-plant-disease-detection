@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeePlantDiseaseDetection"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <!--
