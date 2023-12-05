@@ -1,11 +1,11 @@
 package com.example.coffeeplantdiseasedetection.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.coffeeplantdiseasedetection.R
 import com.example.coffeeplantdiseasedetection.model.BlogItem
 
@@ -17,13 +17,14 @@ class BlogPostAdapter(private val blogPosts: List<BlogItem>) : RecyclerView.Adap
         return BlogPostViewHolder(view)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onBindViewHolder(holder: BlogPostViewHolder, position: Int) {
         val blogPost = blogPosts[position]
         holder.titleTextView.text = blogPost.title
         holder.descriptionTextView.text = blogPost.description
-        Glide.with(holder.itemView.context)
-            .load(blogPost.url)
-            .into(holder.imageView)
+        holder.webView.settings.javaScriptEnabled = true
+        holder.webView.loadUrl(blogPost.url)
+
         holder.itemView.setOnClickListener {
             // Open the blog post in a web browser
             val uri = Uri.parse(blogPost.url)
