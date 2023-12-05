@@ -67,9 +67,9 @@ class MapsFragment : Fragment() {
                     val marker = MarkerOptions()
                         .position(LatLng(districtCoordinates.latitude, districtCoordinates.longitude))
                         .title("${district} | ${"Cerscospora: ${stat.cerscospora}\n" +
-                                "Leaf rust: ${stat.leafRust}\n" +
-                                "Miner: ${stat.miner}\n" +
-                                "Phoma: ${stat.phoma}"}")
+                                " Leaf rust: ${stat.leafRust}\n" +
+                                " Miner: ${stat.miner}\n" +
+                                " Phoma: ${stat.phoma}"}")
 
 
                     // Add marker to map
