@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.coffeeplantdiseasedetection.repository.ApiRepository
 import com.example.coffeeplantdiseasedetection.repository.Repository
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +24,7 @@ import kotlinx.coroutines.withContext
 class MapsFragment : Fragment() {
 
     private lateinit var repository: Repository
+    private var layoutInflater: LayoutInflater? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
 
@@ -38,16 +42,35 @@ class MapsFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 for (stat in stats) {
                     val district = stat.district
-                    val diseaseType = stat.diseaseType
-                    val count = stat.count
 
                     // Get district coordinates
                     val districtCoordinates = getDistrictCoordinates(district)
 
+                    googleMap.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+                        override fun getInfoContents(p0: Marker): View? {
+                            return null
+                        }
+
+                        override fun getInfoWindow(marker: Marker): View? {
+                            val titleSplit = marker.title?.split("|")
+                            val districtName = titleSplit?.get(0)
+                            val diseaseInfo = if (titleSplit?.size!! > 1) titleSplit?.get(1) else ""
+
+                            val infowindowView = layoutInflater?.inflate(R.layout.infowindow_content, null)
+                            infowindowView?.findViewById<TextView>(R.id.tooltip_district_name)?.text = districtName ?: "Unknown"
+                            infowindowView?.findViewById<TextView>(R.id.tooltip_disease_info)?.text = diseaseInfo
+                            return infowindowView
+                        }
+                    })
+
                     // Create marker with tooltip
                     val marker = MarkerOptions()
                         .position(LatLng(districtCoordinates.latitude, districtCoordinates.longitude))
-                        .title("$diseaseType: $count")
+                        .title("${district} | ${"Cerscospora: ${stat.cerscospora}\n" +
+                                "Leaf rust: ${stat.leafRust}\n" +
+                                "Miner: ${stat.miner}\n" +
+                                "Phoma: ${stat.phoma}"}")
+
 
                     // Add marker to map
                     googleMap.addMarker(marker)
@@ -63,6 +86,7 @@ class MapsFragment : Fragment() {
     ): View? {
 
         repository = ApiRepository()
+        layoutInflater = inflater
 
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
@@ -71,6 +95,11 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        layoutInflater = null
     }
 
     private fun getDistrictCoordinates(district: String): LatLng {
