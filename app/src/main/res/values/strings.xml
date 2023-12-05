@@ -26,4 +26,5 @@
     <string name="loaded_image">Loaded Image</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="district_of_the_uploaded_coffee_leaves">District of the uploaded coffee leaves: </string>
+    <string name="google_maps_key" translatable="false">AIzaSyBcTp1lcaSgjcK5XC3LRE8FKVotuEEhoCE</string>
 </resources>

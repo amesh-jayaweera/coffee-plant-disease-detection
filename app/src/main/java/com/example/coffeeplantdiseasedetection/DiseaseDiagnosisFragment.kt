@@ -234,7 +234,7 @@ class DiseaseDiagnosisFragment : Fragment() {
             "Matale",
             "Matara",
             "Monaragala",
-            "Mulaitivu",
+            "Mullaitivu",
             "Nuwara Eliya",
             "Polonnaruwa",
             "Puttalam",
